@@ -2,61 +2,43 @@ const allArticles = [
   {
     id: 0,
     title: 'Furor Over Chinese Spy Balloon Leads to a Diplomatic Crisis',
-    summary:
-      'Secretary of State Antony J. Blinken on Friday canceled a weekend trip to Beijing after a Chinese spy balloon was sighted...',
-    imageUrl: '/images/testimage.png', // Opravené
-    content: `WASHINGTON — Secretary of State Antony J. Blinken on Friday canceled a weekend trip to Beijing after a Chinese spy balloon was sighted above the Rocky Mountain state of Montana, igniting a frenzy of media coverage and political commentary over a machine that the Pentagon said posed no threat to the United States. Mr. Blinken called the Chinese surveillance an “irresponsible act” and a “clear violation of U.S. sovereignty and international law.”`,
+    summary: 'Secretary of State Antony J. Blinken on Friday canceled a weekend trip to Beijing...',
+    imageUrl: '/images/balloon.png', // Hlavný featured obrázok
+    content: 'Full content of the article about the spy balloon...',
     author: 'Bruce Mariow',
     readTime: '2 min read',
+    isFeatured: true,
+  },
+  {
+    id: 7,
+    title: "Democrats Overhaul Party's Primary Calendar, Upending a Political Tradition",
+    summary: '',
+    imageUrl: '/images/testimage.png',
+    content: 'Full content of the article about the primary calendar...',
+    author: 'Jane Doe',
+    readTime: '4 min read',
+    isFeatured: true,
+  },
+  {
+    id: 8,
+    title: "More Airports to Use Greener 'Glide' Approach to Landing",
+    summary: '',
+    imageUrl: '/images/testimage.png',
+    content: 'Full content of the article about greener airports...',
+    author: 'John Smith',
+    readTime: '3 min read',
+    isFeatured: true,
   },
   {
     id: 1,
     title: 'Pervez Musharraf, Former Military Ruler of Pakistan, Dies at 79',
-    imageUrl: '/images/testimage.png', // Opravené
+    imageUrl: '/images/testimage.png',
     content: 'Placeholder content for the article about Pervez Musharraf.',
     author: 'Jane Doe',
     readTime: '3 min read',
+    isFeatured: false,
   },
-  {
-    id: 2,
-    title: 'Fears mount around ‘catastrophic’ abortion pills case as decision nears',
-    imageUrl: '/images/testimage.png', // Opravené
-    content: 'Placeholder content for the article about abortion pills.',
-    author: 'John Smith',
-    readTime: '5 min read',
-  },
-  {
-    id: 3,
-    title: 'London to Istanbul by train: This 10-day rail adventure is a slow traveller’s dream',
-    imageUrl: '/images/testimage.png', // Opravené
-    content: 'Placeholder content for the article about the train.',
-    author: 'Alex Johnson',
-    readTime: '10 min read',
-  },
-  {
-    id: 4,
-    title: '10 ways to streamline meal prep for more efficient weeknight cooking',
-    imageUrl: '/images/testimage.png', // Opravené
-    content: 'Placeholder content for the article about meal prep.',
-    author: 'Chris Lee',
-    readTime: '4 min read',
-  },
-  {
-    id: 5,
-    title: 'Oil prices slip again as spectre of trade war, demand concerns haunts market',
-    imageUrl: '/images/testimage.png', // Opravené
-    content: 'Placeholder content for the article about oil prices.',
-    author: 'Patricia Wall',
-    readTime: '3 min read',
-  },
-  {
-    id: 6,
-    title: 'A ‘De-extinction’ Company Wants to Bring Back the Dodo',
-    imageUrl: '/images/testimage.png', // Opravené
-    content: 'Placeholder content for the article about the dodo.',
-    author: 'Sam Bankman',
-    readTime: '6 min read',
-  },
+  // ... ostatné články s isFeatured: false ...
 ];
 
 export default allArticles;
