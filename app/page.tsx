@@ -16,13 +16,10 @@ export default function Home() {
   const searchTerm = searchParams.get('search') || '';
   
   const [visibleArticlesCount, setVisibleArticlesCount] = useState(INITIAL_ARTICLES_COUNT);
-  const [isLoading, setIsLoading] = useState(true); // Stav pre načítavanie
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulujeme načítavanie dát zo servera
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1500); // Po 1.5 sekunde sa obsah "načíta"
+    const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -35,20 +32,20 @@ export default function Home() {
   }, [searchTerm]);
 
   const mainFeatured = filteredArticles.find((a) => a.id === 0);
-  const secondaryFeatured = filteredArticles.filter((a) => a.isFeatured && a.id !== 0);
+  const secondaryFeatured = filteredArticles.filter((a) => a.isFeatured && a.id !== 0).slice(0, 2);
   const regularArticles = filteredArticles.filter((a) => !a.isFeatured);
-  const popularArticles = allArticlesData.slice(1, 5);
+  const popularArticles = allArticlesData.slice(1, 6);
 
   const visibleArticles = regularArticles.slice(0, visibleArticlesCount);
   const hasMoreArticles = visibleArticlesCount < regularArticles.length;
 
   if (isLoading && !searchTerm) {
-    return <HomePageSkeleton />; // Zobrazíme kostru, kým sa načítava
+    return <HomePageSkeleton />;
   }
 
   return (
-    <main className="max-w-screen-xl mx-auto px-8 py-4">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-12">
+    <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
         <div className="lg:col-span-2">
           {searchTerm && (
             <h2 className="text-2xl font-bold mb-8">
@@ -56,9 +53,14 @@ export default function Home() {
             </h2>
           )}
 
-          {/* === Sekcia hlavných správ === */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-            <div className="md:col-span-2">
+          {/* === NOVÉ ROZLOŽENIE FEATURED SEKCE === */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+            <div className="lg:col-span-1 flex flex-col gap-4">
+              {secondaryFeatured.map(article => (
+                <SecondaryFeaturedCard key={article.id} id={article.id} title={article.title} />
+              ))}
+            </div>
+            <div className="md:col-span-2 lg:col-span-2">
               {mainFeatured && (
                 <FeaturedArticleCard
                   id={mainFeatured.id}
@@ -68,16 +70,12 @@ export default function Home() {
                 />
               )}
             </div>
-            {secondaryFeatured.map(article => (
-              <SecondaryFeaturedCard key={article.id} id={article.id} title={article.title} />
-            ))}
           </div>
 
-          {/* === Sekcia "Najnovšie správy" === */}
           {regularArticles.length > 0 ? (
             <div>
-              <h2 className="text-3xl font-bold mb-8">Najnovšie správy</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <h2 className="text-3xl font-bold mb-8 border-b border-zinc-800 pb-4">Najnovšie správy</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
                 {visibleArticles.map((article) => (
                   <ArticleCard
                     key={article.id}
@@ -103,20 +101,18 @@ export default function Home() {
           ) : null}
         </div>
 
-        {/* === PRAVÝ STĹPEC (Sidebar) === */}
-        <div className="lg:col-span-1">
-          <h2 className="text-3xl font-bold mb-8">Populárne správy</h2>
-          <div className="space-y-4">
+        <div className="lg:col-span-1 mt-12 lg:mt-0">
+          <h2 className="text-3xl font-bold mb-8 border-b border-zinc-800 pb-4">Populárne správy</h2>
+          <div className="space-y-6 pt-8">
             {popularArticles.map((article, index) => (
               <div key={article.id}>
                 <PopularArticleItem
                   id={article.id}
                   title={article.title}
                   readTime={article.readTime}
-                  imageUrl={article.imageUrl}
                 />
                 {index < popularArticles.length - 1 && (
-                  <div className="w-full h-px bg-zinc-700 mt-4"></div>
+                  <div className="w-full h-px bg-zinc-800 mt-6"></div>
                 )}
               </div>
             ))}
@@ -127,16 +123,19 @@ export default function Home() {
   );
 }
 
-// Komponenta pre zobrazenie celej kostry stránky
 function HomePageSkeleton() {
   return (
-    <main className="max-w-screen-xl mx-auto px-8 py-4">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-12">
+    <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
         <div className="lg:col-span-2">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-            <LoadingSkeleton className="md:col-span-2 h-96" />
-            <LoadingSkeleton className="h-24" />
-            <LoadingSkeleton className="h-24" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-12">
+            <div className="space-y-4 lg:col-span-1">
+              <LoadingSkeleton className="h-40" />
+              <LoadingSkeleton className="h-40" />
+            </div>
+            <div className="lg:col-span-2">
+              <LoadingSkeleton className="h-80" />
+            </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <LoadingSkeleton className="h-64" />
@@ -144,8 +143,8 @@ function HomePageSkeleton() {
           </div>
         </div>
         <div className="lg:col-span-1">
-          <div className="space-y-4">
-            {[...Array(4)].map((_, i) => <LoadingSkeleton key={i} className="h-20" />)}
+          <div className="space-y-6">
+            {[...Array(5)].map((_, i) => <LoadingSkeleton key={i} className="h-12" />)}
           </div>
         </div>
       </div>

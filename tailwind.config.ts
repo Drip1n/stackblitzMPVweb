@@ -8,7 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      // Prázdne, pripravené na budúce úpravy
+      colors: {
+        'brand-blue': '#2055a8', // Naša nová modrá farba
+      },
     },
   },
   plugins: [],

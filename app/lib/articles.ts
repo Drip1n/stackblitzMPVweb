@@ -3,7 +3,7 @@ const allArticles = [
     id: 0,
     title: 'Furor Over Chinese Spy Balloon Leads to a Diplomatic Crisis',
     summary: 'Secretary of State Antony J. Blinken on Friday canceled a weekend trip to Beijing...',
-    imageUrl: '/images/balloon.png', // Hlavný featured obrázok
+    imageUrl: '/images/testimage.png', // Hlavný featured obrázok
     content: 'Full content of the article about the spy balloon...',
     author: 'Bruce Mariow',
     readTime: '2 min read',
