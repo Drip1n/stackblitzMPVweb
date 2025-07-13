@@ -1,15 +1,17 @@
 'use client';
 
+// ... (všetky importy a logika zostávajú rovnaké) ...
 import { useState, useMemo, useEffect } from 'react';
 import ArticleCard from './components/ArticleCard';
-import FeaturedArticleCard from './components/FeaturedArticleCard';
 import PopularArticleItem from './components/PopularArticleItem';
-import SecondaryFeaturedCard from './components/SecondaryFeaturedCard';
+import MainFeaturedCard from './components/MainFeaturedCard';
+import TopRightFeaturedCard from './components/TopRightFeaturedCard';
+import BottomRightFeaturedCard from './components/BottomRightFeaturedCard';
 import LoadingSkeleton from './components/LoadingSkeleton';
 import allArticlesData from './lib/articles';
 import { useSearchParams } from 'next/navigation';
 
-const INITIAL_ARTICLES_COUNT = 4;
+const INITIAL_ARTICLES_COUNT = 6;
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -19,7 +21,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 1000);
+    const timer = setTimeout(() => setIsLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -32,10 +34,10 @@ export default function Home() {
   }, [searchTerm]);
 
   const mainFeatured = filteredArticles.find((a) => a.id === 0);
-  const secondaryFeatured = filteredArticles.filter((a) => a.isFeatured && a.id !== 0).slice(0, 2);
+  const topRightFeatured = filteredArticles.find((a) => a.id === 7);
+  const bottomRightFeatured = filteredArticles.find((a) => a.id === 8);
   const regularArticles = filteredArticles.filter((a) => !a.isFeatured);
   const popularArticles = allArticlesData.slice(1, 6);
-
   const visibleArticles = regularArticles.slice(0, visibleArticlesCount);
   const hasMoreArticles = visibleArticlesCount < regularArticles.length;
 
@@ -44,110 +46,125 @@ export default function Home() {
   }
 
   return (
-    <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
-        <div className="lg:col-span-2">
-          {searchTerm && (
-            <h2 className="text-2xl font-bold mb-8">
-              Výsledky pre: "{searchTerm}"
-            </h2>
-          )}
-
-          {/* === NOVÉ ROZLOŽENIE FEATURED SEKCE === */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
-            <div className="lg:col-span-1 flex flex-col gap-4">
-              {secondaryFeatured.map(article => (
-                <SecondaryFeaturedCard key={article.id} id={article.id} title={article.title} />
-              ))}
-            </div>
-            <div className="md:col-span-2 lg:col-span-2">
+    <div className="relative">
+      {/* HORNÁ, TMAVÁ SEKCIA */}
+      <div className="relative z-20">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[36rem]">
+            <div className="lg:col-span-2 h-full">
               {mainFeatured && (
-                <FeaturedArticleCard
+                <MainFeaturedCard
                   id={mainFeatured.id}
                   title={mainFeatured.title}
-                  summary={mainFeatured.summary}
                   imageUrl={mainFeatured.imageUrl}
                 />
               )}
             </div>
-          </div>
-
-          {regularArticles.length > 0 ? (
-            <div>
-              <h2 className="text-3xl font-bold mb-8 border-b border-zinc-800 pb-4">Najnovšie správy</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
-                {visibleArticles.map((article) => (
-                  <ArticleCard
-                    key={article.id}
-                    id={article.id}
-                    title={article.title}
-                    imageUrl={article.imageUrl}
+            <div className="lg:col-span-1 flex flex-col gap-8">
+              {topRightFeatured && (
+                <TopRightFeaturedCard
+                  id={topRightFeatured.id}
+                  title={topRightFeatured.title}
+                  summary={topRightFeatured.summary}
+                  imageUrl={topRightFeatured.imageUrl}
+                />
+              )}
+              {bottomRightFeatured && (
+                <div className="bg-white rounded-lg shadow-lg">
+                  <BottomRightFeaturedCard
+                    id={bottomRightFeatured.id}
+                    title={bottomRightFeatured.title}
+                    author={bottomRightFeatured.author}
+                    readTime={bottomRightFeatured.readTime}
+                    imageUrl={bottomRightFeatured.imageUrl}
                   />
-                ))}
-              </div>
-              {hasMoreArticles && !searchTerm && (
-                <div className="text-center mt-12">
-                  <button
-                    onClick={() => setVisibleArticlesCount(prev => prev + 4)}
-                    className="bg-zinc-800 hover:bg-zinc-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                  >
-                    Zobraziť viac
-                  </button>
                 </div>
               )}
             </div>
-          ) : searchTerm ? (
-            <p>Nenašli sa žiadne články zodpovedajúce vyhľadávaniu.</p>
-          ) : null}
-        </div>
-
-        <div className="lg:col-span-1 mt-12 lg:mt-0">
-          <h2 className="text-3xl font-bold mb-8 border-b border-zinc-800 pb-4">Populárne správy</h2>
-          <div className="space-y-6 pt-8">
-            {popularArticles.map((article, index) => (
-              <div key={article.id}>
-                <PopularArticleItem
-                  id={article.id}
-                  title={article.title}
-                  readTime={article.readTime}
-                />
-                {index < popularArticles.length - 1 && (
-                  <div className="w-full h-px bg-zinc-800 mt-6"></div>
-                )}
-              </div>
-            ))}
           </div>
         </div>
       </div>
-    </main>
+
+      {/* === SPODNÁ, BIELA SEKCIA === */}
+      <div className="relative z-10 bg-white text-zinc-800 -mt-96">
+        {/* TOTO POSÚVA OBSAH NIŽŠIE */}
+        <div className="pt-96">
+          <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8 -mt-0">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
+              <div className="lg:col-span-2">
+                {regularArticles.length > 0 ? (
+                  <div>
+                    <h2 className="text-3xl font-bold mb-8 border-b border-zinc-200 pb-4">Najnovšie správy</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+                      {visibleArticles.map((article) => (
+                        <ArticleCard
+                          key={article.id}
+                          id={article.id}
+                          title={article.title}
+                          imageUrl={article.imageUrl}
+                        />
+                      ))}
+                    </div>
+                    {hasMoreArticles && !searchTerm && (
+                      <div className="text-center mt-12">
+                        <button
+                          onClick={() => setVisibleArticlesCount(prev => prev + 6)}
+                          className="bg-zinc-100 hover:bg-zinc-200 text-zinc-800 font-semibold py-3 px-6 rounded-lg transition-colors"
+                        >
+                          Zobraziť viac
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : null}
+              </div>
+              <div className="lg:col-span-1 mt-12 lg:mt-0">
+                <h2 className="text-3xl font-bold mb-8 border-b border-zinc-200 pb-4">Populárne správy</h2>
+                <div className="space-y-6 pt-8">
+                  {popularArticles.map((article, index) => (
+                    <div key={article.id}>
+                      <PopularArticleItem
+                        id={article.id}
+                        title={article.title}
+                        readTime={article.readTime}
+                      />
+                      {index < popularArticles.length - 1 && (
+                        <div className="w-full h-px bg-zinc-200 mt-6"></div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
   );
 }
 
+// ... (HomePageSkeleton zostáva rovnaká)
 function HomePageSkeleton() {
   return (
-    <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
-        <div className="lg:col-span-2">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-12">
-            <div className="space-y-4 lg:col-span-1">
-              <LoadingSkeleton className="h-40" />
-              <LoadingSkeleton className="h-40" />
-            </div>
-            <div className="lg:col-span-2">
-              <LoadingSkeleton className="h-80" />
-            </div>
+    <div className="relative">
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-48">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[36rem]">
+          <div className="lg:col-span-2 h-full">
+            <LoadingSkeleton className="h-full bg-zinc-800/50" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <LoadingSkeleton className="h-64" />
-            <LoadingSkeleton className="h-64" />
-          </div>
-        </div>
-        <div className="lg:col-span-1">
-          <div className="space-y-6">
-            {[...Array(5)].map((_, i) => <LoadingSkeleton key={i} className="h-12" />)}
+          <div className="lg:col-span-1 flex flex-col gap-8">
+            <LoadingSkeleton className="h-full bg-zinc-800/50" />
+            <div className="bg-white rounded-lg shadow-lg">
+              <LoadingSkeleton className="h-full bg-zinc-300" />
+            </div>
           </div>
         </div>
       </div>
-    </main>
+      <div className="bg-white text-zinc-800 -mt-32 relative z-10 rounded-t-2xl pt-16">
+        <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
+          {/* ... skeleton pre spodnú časť ... */}
+        </main>
+      </div>
+    </div>
   );
 }

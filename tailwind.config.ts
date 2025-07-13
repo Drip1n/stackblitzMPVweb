@@ -9,8 +9,17 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        'brand-blue': '#2055a8', // Naša nová modrá farba
+        'brand-blue': '#2055a8',
       },
+      // === PRIDANÁ SEKCIA PRE ROZŠÍRENIE MEDZIER ===
+      // Týmto sme Tailwindu povedali, aby poznal aj tieto nové hodnoty.
+      spacing: {
+        '104': '26rem', // ~416px
+        '112': '28rem', // ~448px
+        '128': '32rem', // ~512px
+        '144': '36rem', // ~576px
+        '160': '40rem', // ~640px
+      }
     },
   },
   plugins: [],

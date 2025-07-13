@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Header from './components/Header'; // Cesta upravená podľa štruktúry
-import Footer from './components/Footer'; // Importujeme novú pätičku
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -21,11 +21,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sk">
-      <body className={`${inter.variable} bg-zinc-900 text-zinc-50 font-sans flex flex-col min-h-screen`}>
+      {/* Celé pozadie je tmavé */}
+      <body className={`${inter.variable} bg-zinc-900 text-zinc-50 font-sans`}>
         <Header />
-        <div className="flex-grow">
-          {children}
-        </div>
+        {/* Obsah stránky sa vloží sem */}
+        {children}
         <Footer />
       </body>
     </html>
