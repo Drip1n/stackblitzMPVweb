@@ -13,7 +13,7 @@ import {
   MapPin,
   MousePointerClick,
   Search,
-  Globe, // Importujeme ikonu zemegule
+  Globe,
 } from 'lucide-react';
 
 export default function Header() {
@@ -40,7 +40,13 @@ export default function Header() {
 
   return (
     <>
-      <header className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-6 pb-4">
+      {/* KĽÚČOVÁ ZMENA JE TU:
+        - Odstránil som vnorený 'div' kontajner.
+        - Všetko sa teraz riadi šírkou tohto hlavného <header> elementu.
+        - Nastavil som `max-w-7xl` pre viditeľne širší vzhľad.
+        - TÚTO JEDNU TRIEDU (`max-w-7xl`) MÔŽEŠ MENIŤ, ABY SI OVLÁDAL ŠÍRKU.
+      */}
+      <header className="w-full max-w-5xl mx-auto px-4 sm:px-8 pt-6 pb-4">
         {/* === 1. Horná lišta: Pozdrav, citát a čiara === */}
         <div className="text-center mb-5">
           <p className="text-lg">Dobrý deň, {userName} (:</p>
@@ -54,12 +60,11 @@ export default function Header() {
             <Image
               src="/logowithtext.png"
               alt="Logo a nápis Martin pre Vás"
-              width={280} // Zväčšené logo
+              width={280}
               height={70}
               priority
             />
           </Link>
-
           <div className="hidden md:flex items-center cursor-pointer">
             <div className="bg-brand-blue text-white pl-12 pr-8 py-2.5 rounded-l-md text-sm opacity-75">
               hľadaj v článkoch
@@ -69,7 +74,6 @@ export default function Header() {
               <Search size={16} />
             </div>
           </div>
-
           <button
             onClick={() => setIsMenuOpen(true)}
             className="flex h-6 w-8 flex-col justify-between"
@@ -89,7 +93,6 @@ export default function Header() {
                 pathname === '/podujatia' ? 'translate-x-full' : 'translate-x-0'
               }`}
             ></div>
-
             <Link
               href="/"
               className="relative z-10 flex items-center gap-2 px-5 py-1.5"
@@ -106,7 +109,7 @@ export default function Header() {
             </Link>
           </nav>
 
-          {/* Opravená Info Mriežka */}
+          {/* Info Mriežka */}
           <div className="grid grid-cols-3 gap-x-10 gap-y-3 text-base text-zinc-300">
             <span className="flex items-center gap-2">
               <Clock size={16} /> {formattedTime}
