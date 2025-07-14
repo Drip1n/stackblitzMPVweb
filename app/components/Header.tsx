@@ -46,7 +46,7 @@ export default function Header() {
         - Nastavil som `max-w-7xl` pre viditeľne širší vzhľad.
         - TÚTO JEDNU TRIEDU (`max-w-7xl`) MÔŽEŠ MENIŤ, ABY SI OVLÁDAL ŠÍRKU.
       */}
-      <header className="w-full max-w-5xl mx-auto px-4 sm:px-8 pt-6 pb-4">
+      <header className="w-full max-w-6xl mx-auto px-4 sm:px-8 pt-6 pb-4">
         {/* === 1. Horná lišta: Pozdrav, citát a čiara === */}
         <div className="text-center mb-5">
           <p className="text-lg">Dobrý deň, {userName} (:</p>

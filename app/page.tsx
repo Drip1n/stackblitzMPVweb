@@ -1,12 +1,11 @@
 'use client';
 
-// ... (všetky importy a logika zostávajú rovnaké) ...
 import { useState, useMemo, useEffect } from 'react';
 import ArticleCard from './components/ArticleCard';
 import PopularArticleItem from './components/PopularArticleItem';
-import MainFeaturedCard from './components/MainFeaturedCard';
-import TopRightFeaturedCard from './components/TopRightFeaturedCard';
-import BottomRightFeaturedCard from './components/BottomRightFeaturedCard';
+import HeroArticleCard from './components/HeroArticleCard';
+import TopSideArticleCard from './components/TopSideArticleCard';
+import BottomSideArticleCard from './components/BottomSideArticleCard';
 import LoadingSkeleton from './components/LoadingSkeleton';
 import allArticlesData from './lib/articles';
 import { useSearchParams } from 'next/navigation';
@@ -38,6 +37,7 @@ export default function Home() {
   const bottomRightFeatured = filteredArticles.find((a) => a.id === 8);
   const regularArticles = filteredArticles.filter((a) => !a.isFeatured);
   const popularArticles = allArticlesData.slice(1, 6);
+
   const visibleArticles = regularArticles.slice(0, visibleArticlesCount);
   const hasMoreArticles = visibleArticlesCount < regularArticles.length;
 
@@ -50,19 +50,24 @@ export default function Home() {
       {/* HORNÁ, TMAVÁ SEKCIA */}
       <div className="relative z-20">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[36rem]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[40rem]">
+            {/* ĽAVÁ ČASŤ - HLAVNÝ ČLÁNOK (2/3 šírky) */}
             <div className="lg:col-span-2 h-full">
               {mainFeatured && (
-                <MainFeaturedCard
+                <HeroArticleCard
                   id={mainFeatured.id}
                   title={mainFeatured.title}
+                  summary={mainFeatured.summary}
+                  author={mainFeatured.author}
+                  readTime={mainFeatured.readTime}
                   imageUrl={mainFeatured.imageUrl}
                 />
               )}
             </div>
+            {/* PRAVÁ ČASŤ - DVA MENŠIE ČLÁNKY (1/3 šírky) */}
             <div className="lg:col-span-1 flex flex-col gap-8">
               {topRightFeatured && (
-                <TopRightFeaturedCard
+                <TopSideArticleCard
                   id={topRightFeatured.id}
                   title={topRightFeatured.title}
                   summary={topRightFeatured.summary}
@@ -71,11 +76,12 @@ export default function Home() {
               )}
               {bottomRightFeatured && (
                 <div className="bg-white rounded-lg shadow-lg">
-                  <BottomRightFeaturedCard
+                  <BottomSideArticleCard
                     id={bottomRightFeatured.id}
                     title={bottomRightFeatured.title}
                     author={bottomRightFeatured.author}
                     readTime={bottomRightFeatured.readTime}
+                    summary={bottomRightFeatured.summary}
                     imageUrl={bottomRightFeatured.imageUrl}
                   />
                 </div>
@@ -85,12 +91,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* === SPODNÁ, BIELA SEKCIA === */}
-      <div className="relative z-10 bg-white text-zinc-800 -mt-96">
-        {/* TOTO POSÚVA OBSAH NIŽŠIE */}
-        <div className="pt-96">
-          <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8 -mt-0">
+      {/* SPODNÁ, BIELA SEKCIA */}
+      <div className="relative z-10 bg-white text-zinc-800 -mt-80">
+        <div className="pt-48">
+          <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
+              {/* ĽAVÝ STĹPEC (Najnovšie správy) */}
               <div className="lg:col-span-2">
                 {regularArticles.length > 0 ? (
                   <div>
@@ -118,6 +124,7 @@ export default function Home() {
                   </div>
                 ) : null}
               </div>
+              {/* PRAVÝ STĹPEC (Sidebar) */}
               <div className="lg:col-span-1 mt-12 lg:mt-0">
                 <h2 className="text-3xl font-bold mb-8 border-b border-zinc-200 pb-4">Populárne správy</h2>
                 <div className="space-y-6 pt-8">
@@ -143,7 +150,7 @@ export default function Home() {
   );
 }
 
-// ... (HomePageSkeleton zostáva rovnaká)
+// ... (Komponenta HomePageSkeleton zostáva rovnaká)
 function HomePageSkeleton() {
   return (
     <div className="relative">
