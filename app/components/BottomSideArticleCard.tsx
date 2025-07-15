@@ -5,7 +5,9 @@ type CardProps = { id: number; title: string; imageUrl: string; author: string; 
 
 export default function BottomSideArticleCard({ id, title, imageUrl, author, readTime, summary }: CardProps) {
   return (
+    // Odkaz obaľuje celý kontajner, nemá vlastné pozadie
     <Link href={`/clanok/${id}`} className="group flex items-center gap-4 p-4 h-full">
+      {/* Obrázok */}
       <div className="relative w-32 h-full flex-shrink-0 overflow-hidden rounded-lg">
         <Image
           src={imageUrl}
@@ -14,6 +16,7 @@ export default function BottomSideArticleCard({ id, title, imageUrl, author, rea
           className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </div>
+      {/* Textová časť */}
       <div className="flex flex-col">
         <h3 className="text-lg font-bold text-zinc-800 leading-tight group-hover:text-brand-blue transition-colors">
           {title}

@@ -1,5 +1,6 @@
 'use client';
 
+// ... (všetky importy a logika zostávajú rovnaké) ...
 import { useState, useMemo, useEffect } from 'react';
 import ArticleCard from './components/ArticleCard';
 import PopularArticleItem from './components/PopularArticleItem';
@@ -51,7 +52,7 @@ export default function Home() {
       <div className="relative z-20">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[40rem]">
-            {/* ĽAVÁ ČASŤ - HLAVNÝ ČLÁNOK (2/3 šírky) */}
+            {/* ĽAVÁ ČASŤ - HLAVNÝ ČLÁNOK */}
             <div className="lg:col-span-2 h-full">
               {mainFeatured && (
                 <HeroArticleCard
@@ -64,18 +65,21 @@ export default function Home() {
                 />
               )}
             </div>
-            {/* PRAVÁ ČASŤ - DVA MENŠIE ČLÁNKY (1/3 šírky) */}
+            {/* PRAVÁ ČASŤ - DVA MENŠIE ČLÁNKY (50/50) */}
             <div className="lg:col-span-1 flex flex-col gap-8">
-              {topRightFeatured && (
-                <TopSideArticleCard
-                  id={topRightFeatured.id}
-                  title={topRightFeatured.title}
-                  summary={topRightFeatured.summary}
-                  imageUrl={topRightFeatured.imageUrl}
-                />
-              )}
-              {bottomRightFeatured && (
-                <div className="bg-white rounded-lg shadow-lg">
+              <div className="flex-1">
+                {topRightFeatured && (
+                  <TopSideArticleCard
+                    id={topRightFeatured.id}
+                    title={topRightFeatured.title}
+                    summary={topRightFeatured.summary}
+                    imageUrl={topRightFeatured.imageUrl}
+                  />
+                )}
+              </div>
+              {/* Tento div teraz dáva biele pozadie pre spodný článok */}
+              <div className="flex-1 bg-white rounded-lg shadow-lg">
+                {bottomRightFeatured && (
                   <BottomSideArticleCard
                     id={bottomRightFeatured.id}
                     title={bottomRightFeatured.title}
@@ -84,8 +88,8 @@ export default function Home() {
                     summary={bottomRightFeatured.summary}
                     imageUrl={bottomRightFeatured.imageUrl}
                   />
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -93,7 +97,8 @@ export default function Home() {
 
       {/* SPODNÁ, BIELA SEKCIA */}
       <div className="relative z-10 bg-white text-zinc-800 -mt-80">
-        <div className="pt-48">
+        {/* KĽÚČOVÁ ZMENA: Zväčšený padding hore posúva obsah nižšie */}
+        <div className="pt-80">
           <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
               {/* ĽAVÝ STĹPEC (Najnovšie správy) */}
@@ -154,23 +159,45 @@ export default function Home() {
 function HomePageSkeleton() {
   return (
     <div className="relative">
-      <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-48">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[36rem]">
-          <div className="lg:col-span-2 h-full">
-            <LoadingSkeleton className="h-full bg-zinc-800/50" />
-          </div>
-          <div className="lg:col-span-1 flex flex-col gap-8">
-            <LoadingSkeleton className="h-full bg-zinc-800/50" />
-            <div className="bg-white rounded-lg shadow-lg">
-              <LoadingSkeleton className="h-full bg-zinc-300" />
+      <div className="relative z-20">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[40rem]">
+            <div className="lg:col-span-2 h-full">
+              <LoadingSkeleton className="w-full h-full bg-zinc-800" />
+            </div>
+            <div className="lg:col-span-1 flex flex-col gap-8">
+              <div className="flex-1">
+                <LoadingSkeleton className="w-full h-full bg-zinc-800" />
+              </div>
+              <div className="flex-1 bg-white rounded-lg shadow-lg">
+                <LoadingSkeleton className="w-full h-full bg-zinc-300" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="bg-white text-zinc-800 -mt-32 relative z-10 rounded-t-2xl pt-16">
-        <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
-          {/* ... skeleton pre spodnú časť ... */}
-        </main>
+      <div className="relative z-10 bg-white text-zinc-800 -mt-80">
+        <div className="pt-48">
+          <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
+              <div className="lg:col-span-2">
+                <LoadingSkeleton className="h-10 w-1/3 mb-8 bg-zinc-300" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8">
+                  <LoadingSkeleton className="h-64 bg-zinc-300" />
+                  <LoadingSkeleton className="h-64 bg-zinc-300" />
+                </div>
+              </div>
+              <div className="lg:col-span-1 mt-12 lg:mt-0">
+                <LoadingSkeleton className="h-10 w-1/2 mb-8 bg-zinc-300" />
+                <div className="space-y-6 pt-8">
+                  {[...Array(5)].map((_, i) => (
+                    <LoadingSkeleton key={i} className="h-16 bg-zinc-300" />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
