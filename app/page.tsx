@@ -51,7 +51,8 @@ export default function Home() {
       {/* HORNÁ, TMAVÁ SEKCIA */}
       <div className="relative z-20">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[40rem]">
+          {/* ZMENŠENÁ VÝŠKA KONTANIERA */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[36rem]">
             {/* ĽAVÁ ČASŤ - HLAVNÝ ČLÁNOK */}
             <div className="lg:col-span-2 h-full">
               {mainFeatured && (
@@ -77,7 +78,6 @@ export default function Home() {
                   />
                 )}
               </div>
-              {/* Tento div teraz dáva biele pozadie pre spodný článok */}
               <div className="flex-1 bg-white rounded-lg shadow-lg">
                 {bottomRightFeatured && (
                   <BottomSideArticleCard
@@ -96,9 +96,9 @@ export default function Home() {
       </div>
 
       {/* SPODNÁ, BIELA SEKCIA */}
-      <div className="relative z-10 bg-white text-zinc-800 -mt-80">
+      <div className="relative z-10 bg-white text-zinc-800 -mt-64">
         {/* KĽÚČOVÁ ZMENA: Zväčšený padding hore posúva obsah nižšie */}
-        <div className="pt-80">
+        <div className="pt-72">
           <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
               {/* ĽAVÝ STĹPEC (Najnovšie správy) */}
