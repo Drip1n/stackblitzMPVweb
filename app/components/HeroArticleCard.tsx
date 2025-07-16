@@ -27,7 +27,7 @@ export default function HeroArticleCard({ id, title, imageUrl, summary, author, 
         
         {/* Kontajner pre text*/}
         <div className="absolute bottom-0 left-0 p-8 text-white w-full">
-          <h2 className="text-3xl font-bold leading-tight drop-shadow-lg">
+          <h2 className="text-2xl font-bold leading-tight drop-shadow-lg">
             {title}
           </h2>
           {/* Autor a čas čítania */}

@@ -9,7 +9,7 @@ export default function BottomSideArticleCard({ id, title, imageUrl, author, rea
     // Tento komponent nemá vlastné pozadie, preberá ho od rodiča v `page.tsx` (div s bg-white)
     <Link href={`/clanok/${id}`} className="group flex items-center gap-4 p-4 h-full">
       {/* 2. Obrázok */}
-      <div className="relative w-32 h-full flex-shrink-0 overflow-hidden rounded-lg">
+      <div className="relative w-32 h-full flex-shrink-0 overflow-hidden rounded-">
         <Image
           src={imageUrl}
           alt={title}
