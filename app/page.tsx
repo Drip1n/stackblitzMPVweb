@@ -51,10 +51,10 @@ export default function Home() {
       {/* HORNÁ, TMAVÁ SEKCIA */}
       <div className="relative z-20">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-8">
-          {/* ZMENŠENÁ VÝŠKA KONTANIERA */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 h-[36rem]">
+
+          <div className="grid grid-cols-1 grid-cols-16 gap-8 h-[30rem]">
             {/* ĽAVÁ ČASŤ - HLAVNÝ ČLÁNOK */}
-            <div className="lg:col-span-2 h-full">
+            <div className="col-span-9 h-full">
               {mainFeatured && (
                 <HeroArticleCard
                   id={mainFeatured.id}
@@ -67,7 +67,7 @@ export default function Home() {
               )}
             </div>
             {/* PRAVÁ ČASŤ - DVA MENŠIE ČLÁNKY (50/50) */}
-            <div className="lg:col-span-1 flex flex-col gap-8">
+            <div className="col-span-7 flex flex-col gap-8">
               <div className="flex-1">
                 {topRightFeatured && (
                   <TopSideArticleCard
@@ -139,6 +139,7 @@ export default function Home() {
                         id={article.id}
                         title={article.title}
                         readTime={article.readTime}
+                        author={article.author}
                       />
                       {index < popularArticles.length - 1 && (
                         <div className="w-full h-px bg-zinc-200 mt-6"></div>

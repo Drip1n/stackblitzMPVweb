@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import MobileMenu from './MobileMenu';
+import { useRouter } from 'next/navigation'; // Pridáme useRouter
 import {
   Clock,
   Sun,
@@ -18,8 +19,10 @@ import {
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [searchTerm, setSearchTerm] = useState(''); // Stav pre vyhľadávaný výraz
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -37,6 +40,12 @@ export default function Header() {
     month: '2-digit',
     year: 'numeric',
   });
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      router.push(`/?search=${encodeURIComponent(searchTerm.trim())}`);
+    }
+  };
 
   return (
     <>
@@ -46,7 +55,7 @@ export default function Header() {
         - Nastavil som `max-w-7xl` pre viditeľne širší vzhľad.
         - TÚTO JEDNU TRIEDU (`max-w-7xl`) MÔŽEŠ MENIŤ, ABY SI OVLÁDAL ŠÍRKU.
       */}
-      <header className="w-full max-w-6xl mx-auto px-4 sm:px-8 pt-6 pb-4">
+      <header className="w-full max-w-screen-xl mx-auto px-4 sm:px-8 pt-6 pb-4">
         {/* === 1. Horná lišta: Pozdrav, citát a čiara === */}
         <div className="text-center mb-5">
           <p className="text-lg">Dobrý deň, {userName} (:</p>
@@ -65,15 +74,22 @@ export default function Header() {
               priority
             />
           </Link>
-          <div className="hidden md:flex items-center cursor-pointer">
-            <div className="bg-brand-blue text-white pl-12 pr-8 py-2.5 rounded-l-md text-sm opacity-75">
-              hľadaj v článkoch
-            </div>
-            <div className="bg-white text-black px-4 py-2.5 rounded-r-md font-bold text-sm flex items-center gap-2">
+          <form onSubmit={handleSearch} className="hidden md:flex items-center">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="hľadaj v článkoch..."
+              className="bg-zinc-800 text-white pl-4 pr-2 py-2.5 rounded-l-md focus:outline-none focus:ring-2 focus:ring-brand-blue"
+            />
+            <button
+              type="submit"
+              className="bg-brand-blue text-white px-4 py-2.5 rounded-r-md font-bold text-sm flex items-center gap-2"
+            >
               hľadaj
               <Search size={16} />
-            </div>
-          </div>
+            </button>
+          </form>
           <button
             onClick={() => setIsMenuOpen(true)}
             className="flex h-6 w-8 flex-col justify-between"

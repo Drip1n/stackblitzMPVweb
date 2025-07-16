@@ -12,9 +12,7 @@ type CardProps = {
 
 export default function HeroArticleCard({ id, title, imageUrl, summary, author, readTime }: CardProps) {
   return (
-    // 1. Vonkajší kontajner, ktorý je BIELYM RÁMIKOM.
-    // Je bez tieňa (shadow) a padding (p-4) vytvára biely priestor okolo obrázka.
-    <div className="bg-white rounded- h-full w-full p-4">
+    <div className="bg-white rounded- h-full w-full p-5">
       {/* 2. Odkaz s obrázkom a textom. Má ostré rohy (rounded-none). */}
       <Link href={`/clanok/${id}`} className="relative block group w-full h-full rounded-none overflow-hidden">
         <Image
@@ -25,11 +23,11 @@ export default function HeroArticleCard({ id, title, imageUrl, summary, author, 
           priority
         />
         {/* Jemný gradient na obrázku pre lepšiu čitateľnosť textu */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent"></div>
         
-        {/* Kontajner pre text - OPRAVENÉ FORMÁTOVANIE */}
+        {/* Kontajner pre text*/}
         <div className="absolute bottom-0 left-0 p-8 text-white w-full">
-          <h2 className="text-4xl font-bold leading-tight drop-shadow-lg">
+          <h2 className="text-3xl font-bold leading-tight drop-shadow-lg">
             {title}
           </h2>
           {/* Autor a čas čítania */}

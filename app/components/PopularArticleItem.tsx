@@ -9,15 +9,17 @@ type PopularArticleItemProps = {
 export default function PopularArticleItem({
   id,
   title,
+  author,
   readTime,
-}: PopularArticleItemProps) {
+}: { id: number; title: string; author: string; readTime: string; }) {
   return (
     <Link href={`/clanok/${id}`} className="group block">
-      <p className="font-semibold group-hover:text-white/80 leading-tight">
+      <h3 className="text-lg font-bold text-zinc-800 leading-tight group-hover:text-brand-blue transition-colors">
         {title}
+      </h3>
+      <p className="text-xs text-zinc-500 mt-1">
+        By {author} &bull; {readTime}
       </p>
-      {/* Čas čítania môžeme skryť, ak nie je v dizajne, alebo nechať */}
-      {/* <p className="text-sm text-zinc-400 mt-1">{readTime}</p> */}
     </Link>
   );
 }
