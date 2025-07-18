@@ -22,7 +22,7 @@ const allArticles = [
   {
     id: 8,
     title: "More Airports to Use Greener 'Glide' Approach to Landing",
-    summary: '',
+    summary: 'Jedenásť ďalších letísk v USA plánuje zaviesť nový spôsob pristávania lietadiel, ktorý znižuje emisie aj hluk.',
     imageUrl: '/images/testimage.png',
     content: 'Full content of the article about greener airports...',
     author: 'John Smith',

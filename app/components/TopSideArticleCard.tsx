@@ -26,7 +26,7 @@ export default function TopSideArticleCard({ id, title, summary, imageUrl }: Car
       */}
       <div className='
         absolute z-10
-        top-0 right-0 bottom-[-3rem] left-[-2rem]
+        top-0 right-0 bottom-[-4rem] left-[-2rem]
         
         p-5 flex gap-5
       '>

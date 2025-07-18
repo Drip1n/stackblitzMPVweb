@@ -68,6 +68,7 @@ export default function Home() {
             </div>
             {/* PRAVÁ ČASŤ - DVA MENŠIE ČLÁNKY (50/50) */}
             <div className="col-span-7 flex flex-col gap-8">
+
               <div className="flex-1 relative">
                 {topRightFeatured && (
                   <TopSideArticleCard
@@ -78,6 +79,7 @@ export default function Home() {
                   />
                 )}
               </div>
+              
               <div className="flex-1">
                 {bottomRightFeatured && (
                   <BottomSideArticleCard
