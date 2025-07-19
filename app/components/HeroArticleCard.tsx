@@ -30,7 +30,7 @@ export default function HeroArticleCard({ id, title, imageUrl, summary, author, 
       <Link href={`/clanok/${id}`} className="
         relative block group
         w-full // Šírka ostáva 100%
-        h-[60%] md:h-[100%] // 📏 VÝŠKA OBRÁZKA: Tu priamo ovládaš výšku obrázka.
+        h-[82%] md:h-[100%] // 📏 VÝŠKA OBRÁZKA: Tu priamo ovládaš výšku obrázka.
                           //    `h-[90%]` znamená, že na mobile bude obrázok vysoký 90% z celkovej výšky karty.
                           //    `md:h-[95%]` znamená, že na desktope bude vysoký 95%.
                           //    Skús hodnoty `h-[80%]`, `h-full`, `h-[50%]` atď.

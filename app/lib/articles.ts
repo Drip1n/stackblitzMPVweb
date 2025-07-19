@@ -11,7 +11,7 @@ const allArticles = [
   },
   {
     id: 7,
-    title: "Democrats Overhaul Party's Primary Calendar, Upending a Political Tradition",
+    title: "Fico je pán celého Slovenska, milujeme ho",
     summary: 'sedim na letisku v gruzinskom kutaisi meska mi let do pici cabo odisiel nechal ma tu na pospas rusom aj ukrajincom a citim sa jak na fronte idem asi do moskvy cez instanbul',
     imageUrl: '/images/testimage.png',
     content: 'Full content of the article about the primary calendar...',
@@ -21,7 +21,7 @@ const allArticles = [
   },
   {
     id: 8,
-    title: "More Airports to Use Greener 'Glide' Approach to Landing",
+    title: "Pelegrini siel na front podporit nasich vojakov",
     summary: 'Jedenásť ďalších letísk v USA plánuje zaviesť nový spôsob pristávania lietadiel, ktorý znižuje emisie aj hluk.',
     imageUrl: '/images/testimage.png',
     content: 'Full content of the article about greener airports...',
