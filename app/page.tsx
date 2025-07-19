@@ -1,6 +1,5 @@
 'use client';
 
-// ... (všetky importy a logika zostávajú rovnaké) ...
 import { useState, useMemo, useEffect } from 'react';
 import ArticleCard from './components/ArticleCard';
 import PopularArticleItem from './components/PopularArticleItem';
@@ -52,9 +51,19 @@ export default function Home() {
       <div className="relative z-20">
         <div className="max-w-screen-xl mx-auto px-4 sm:px-8 pt-8 pb-8">
 
-          <div className="grid grid-cols-1 grid-cols-16 gap-8 h-[30rem]">
+          {/* =======================================================================
+            === kontrola vysky sekcie ===
+            =======================================================================
+          */}
+          <div className="
+            grid
+            grid-cols-16 // Grid má vždy 16 stĺpcov
+            gap-4 md:gap-8 // Na mobile menšia medzera medzi stĺpcami.
+            h-[25rem] md:h-[30rem] // Responzívna výška celej sekcie.
+          ">
+            
             {/* ĽAVÁ ČASŤ - HLAVNÝ ČLÁNOK */}
-            <div className="col-span-9 h-full">
+            <div className="col-span-9 h-full"> {/* Vždy zaberie 9 z 16 stĺpcov. */}
               {mainFeatured && (
                 <HeroArticleCard
                   id={mainFeatured.id}
@@ -66,9 +75,9 @@ export default function Home() {
                 />
               )}
             </div>
-            {/* PRAVÁ ČASŤ - DVA MENŠIE ČLÁNKY (50/50) */}
-            <div className="col-span-7 flex flex-col gap-8">
-
+            
+            {/* PRAVÁ ČASŤ - DVA MENŠIE ČLÁNKY */}
+            <div className="col-span-7 flex flex-col gap-8"> {/* Vždy zaberie 7 z 16 stĺpcov. */}
               <div className="flex-1 relative">
                 {topRightFeatured && (
                   <TopSideArticleCard
@@ -97,10 +106,14 @@ export default function Home() {
         </div>
       </div>
 
-      {/* SPODNÁ, BIELA SEKCIA */}
-      <div className="relative z-10 bg-white text-zinc-800 -mt-80">
-        {/* KĽÚČOVÁ ZMENA: Zväčšený padding hore posúva obsah nižšie */}
-        <div className="pt-72">
+      {/* --- OPRAVENÁ RESPONZÍVNA BIELA SEKCIA --- */}
+      <div className="
+        relative z-10 bg-white text-zinc-800
+        -mt-[20rem] md:-mt-80 // Responzívny posun nahor
+      ">
+        <div className="
+          pt-[22rem] md:pt-72 // Responzívny posun obsahu nadol
+        ">
           <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
               {/* ĽAVÝ STĹPEC (Najnovšie správy) */}
@@ -158,7 +171,7 @@ export default function Home() {
   );
 }
 
-// ... (Komponenta HomePageSkeleton zostáva rovnaká)
+// Komponenta HomePageSkeleton ostáva bez zmeny
 function HomePageSkeleton() {
   return (
     <div className="relative">

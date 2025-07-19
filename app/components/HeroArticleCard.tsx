@@ -12,9 +12,30 @@ type CardProps = {
 
 export default function HeroArticleCard({ id, title, imageUrl, summary, author, readTime }: CardProps) {
   return (
-    <div className="bg-white rounded- h-full w-full p-5">
-      {/* 2. Odkaz s obrázkom a textom. Má ostré rohy (rounded-none). */}
-      <Link href={`/clanok/${id}`} className="relative block group w-full h-full rounded-none overflow-hidden">
+    // =======================================================================
+    // === KROK 1: Z bieleho podkladu spravíme flex kontajner ===
+    // =======================================================================
+    <div className="
+      bg-white
+      rounded-none
+      h-full w-full
+      p-3 md:p-5
+      
+      flex items-top justify-center // ✨ ZMENA: Tieto triedy vycentrujú vnorený obrázok na stred.
+    ">
+      {/* =======================================================================
+          === KROK 2: OVLÁDANIE VÝŠKY OBRÁZKA JE TERAZ TU ===
+          =======================================================================
+      */}
+      <Link href={`/clanok/${id}`} className="
+        relative block group
+        w-full // Šírka ostáva 100%
+        h-[60%] md:h-[100%] // 📏 VÝŠKA OBRÁZKA: Tu priamo ovládaš výšku obrázka.
+                          //    `h-[90%]` znamená, že na mobile bude obrázok vysoký 90% z celkovej výšky karty.
+                          //    `md:h-[95%]` znamená, že na desktope bude vysoký 95%.
+                          //    Skús hodnoty `h-[80%]`, `h-full`, `h-[50%]` atď.
+        rounded-none overflow-hidden
+      ">
         <Image
           src={imageUrl}
           alt={title}
@@ -22,20 +43,16 @@ export default function HeroArticleCard({ id, title, imageUrl, summary, author, 
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           priority
         />
-        {/* Jemný gradient na obrázku pre lepšiu čitateľnosť textu */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/100 to-transparent"></div>
         
-        {/* Kontajner pre text*/}
-        <div className="absolute bottom-0 left-0 p-8 text-white w-full">
-          <h2 className="text-2xl font-bold leading-tight drop-shadow-lg">
+        <div className="absolute bottom-0 left-0 p-4 md:p-8 text-white w-full">
+          <h2 className="text-xl md:text-2xl font-bold leading-tight drop-shadow-lg">
             {title}
           </h2>
-          {/* Autor a čas čítania */}
-          <p className="text-sm text-zinc-300 mt-2">
+          <p className="text-xs md:text-sm text-zinc-300 mt-2">
             By {author} &bull; {readTime}
           </p>
-          {/* Preview textu článku */}
-          <p className="mt-4 text-zinc-200 hidden md:block max-w-lg text-base">
+          <p className="mt-2 text-zinc-200 text-xs md:text-base line-clamp-2 md:line-clamp-3">
             {summary}
           </p>
         </div>
