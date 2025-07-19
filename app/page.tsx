@@ -79,7 +79,7 @@ export default function Home() {
                   />
                 )}
               </div>
-              
+
               <div className="flex-1">
                 {bottomRightFeatured && (
                   <BottomSideArticleCard
@@ -98,7 +98,7 @@ export default function Home() {
       </div>
 
       {/* SPODNÁ, BIELA SEKCIA */}
-      <div className="relative z-10 bg-white text-zinc-800 -mt-64">
+      <div className="relative z-10 bg-white text-zinc-800 -mt-80">
         {/* KĽÚČOVÁ ZMENA: Zväčšený padding hore posúva obsah nižšie */}
         <div className="pt-72">
           <main className="max-w-screen-xl mx-auto px-4 sm:px-8 py-8">

@@ -5,53 +5,47 @@ type CardProps = { id: number; title: string; imageUrl: string; summary: string;
 
 export default function TopSideArticleCard({ id, title, summary, imageUrl }: CardProps) {
   return (
-    // Hlavný kontajner, ktorý definuje "pôvodný" priestor karty
     <div className="relative h-full">
 
-      {/* Sivé pozadie (bez zmeny) */}
+      {/* =====================================================================
+          === 1. SIVÉ POZADIE - KONTROLA VÝŠKY ZOSPODU ===
+          =====================================================================
+          `bottom-[-1rem]`: Toto je tvoja hodnota. Tu môžeš presne meniť,
+          o koľko podklad presahuje dole. Napr. `bottom-[-2rem]`, `bottom-0`, atď.
+      */}
       <div className='
         absolute z-0 
         bg-zinc-800
         rounded-none 
         shadow-lg
-        top-0 right-0 bottom-[-3.25rem] left-[-2rem]
+        top-0 right-0 bottom-[-0.7rem] left-[-2rem]
       ' />
       
-      {/* =========================================================================
-          === KĽÚČOVÁ ZMENA JE TU: Kontajner s obsahom teraz kopíruje pozadie ===
-          =========================================================================
-          Tento `div` už nie je `relative h-full`, ale je tiež `absolute` a má
-          rovnaké rozmery (top, right, bottom, left) ako sivé pozadie za ním.
-          Vďaka tomu sa text a obrázok roztiahnu na celú plochu.
-      */}
+      {/* Kontajner s obsahom - musí mať rovnaké rozmery ako pozadie */}
       <div className='
         absolute z-10
-        top-0 right-0 bottom-[-4rem] left-[-2rem]
+        top-0 right-0 bottom-[-1rem] left-[-2rem]
         
         p-5 flex gap-5
+        items-center // ✨ ZMENA: Táto trieda vertikálne vycentruje textovú aj obrázkovú časť.
       '>
         
         {/* --- ✍️ Ľavá (textová) časť --- */}
-        {/* Žiadne zmeny vnútri tejto časti */}
-        <div className="
-          flex flex-col 
-          w-1/2         
-          text-white
-        ">
-          <p className='text-white text-base flex-grow'>
-            {summary}
-          </p>
-          <p className="text-sm text-white mb-2">
-              Zistite viac o tomto príbehu. Inspiruj sa tymto zaujimavym clankom a pozri sa co sa mozes docitat viac
-          </p>
-          <Link href={`/clanok/${id}`} className="text-brand-blue font-semibold hover:underline">
-            Čítať viac &rarr;
+        <div className="flex flex-col w-1/2 text-white h-full justify-top">
+          
+          {/* =========================================================================
+              === 2. ZMENA: Celý text je teraz jeden klikateľný odkaz ===
+              =========================================================================
+          */}
+          <Link href={`/clanok/${id}`} className="text-white hover:text-zinc-300 transition-colors">
+            <p className='text-base'>
+              {summary}... {/* Pridané tri bodky na koniec */}
+            </p>
           </Link>
         </div>
 
         {/* --- 🖼️ Pravá (obrázková) časť s nadpisom --- */}
-        {/* Žiadne zmeny vnútri tejto časti */}
-        <Link href={`/clanok/${id}`} className='w-1/2 relative rounded-none overflow-hidden group'>
+        <Link href={`/clanok/${id}`} className='w-1/2 h-full relative rounded-none overflow-hidden group'>
           <Image
               src={imageUrl}
               alt={title}

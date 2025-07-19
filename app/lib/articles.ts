@@ -12,7 +12,7 @@ const allArticles = [
   {
     id: 7,
     title: "Democrats Overhaul Party's Primary Calendar, Upending a Political Tradition",
-    summary: '',
+    summary: 'sedim na letisku v gruzinskom kutaisi meska mi let do pici cabo odisiel nechal ma tu na pospas rusom aj ukrajincom a citim sa jak na fronte idem asi do moskvy cez instanbul',
     imageUrl: '/images/testimage.png',
     content: 'Full content of the article about the primary calendar...',
     author: 'Jane Doe',
